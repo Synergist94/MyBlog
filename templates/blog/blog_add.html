@@ -1,0 +1,24 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% block title %}{{ title}}{% endblock %}
+{% block mainblog %}
+<div style='border:5px solid #fff;'></div>
+    <div class="card">
+        <div class="card-header">
+            Страница добавления новой записи
+        </div>
+        <div class="card-body">
+            <form class="form_reg" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="form-error">{{ form.non_field_errors }}</div>
+                {{ form.media }}
+                {% for f in form %}
+                <p><label  class="form_label_2" for="{{ f.id_for_label }}">{{f.label}}: </label>{{ f }}</p>
+                <div class="form-error">{{ f.errors }}</div>
+                {% endfor %}
+
+                <button class="btn btn-primary" type="submit">Добавить</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

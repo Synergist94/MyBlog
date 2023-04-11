@@ -1,0 +1,38 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% block title %}{{ posts.title }}{% endblock %}
+{% block mainblog %}
+    {% if posts %}
+        {% for post in posts%}
+        <div style='border:5px solid #fff;'></div>
+        <div class="card">
+            <div class="card-header">
+                {{post.title}}
+            </div>
+            <div class="card-body">
+                {{post.text|safe}}
+                <a href="{% url 'post_detail' post.slug%}" class="btn btn-primary">Подробней</a>
+            </div>
+            <div class="art_footer_2">
+                Добавил: 
+                <img width='25px' class="rounded-circle article-img" src="{{ post.author.profile.image.url }}">
+                <a style='text-decoration: none;' href="{% url 'profile' post.author.id %}">{{post.author}} </a> | Дата публикации {{post.created_on|date:"d-m-Y H:i"}} | Категория - {{post.category}}
+            </div>
+        </div>
+        {% endfor %}
+    {% else %}
+        В базе данный нет записей
+    {% endif %}
+{% if is_paginated %}
+  <nav aria-label="Page navigation conatiner"></nav>
+  <ul class="pagination justify-content-center">
+    {% if page_obj.has_previous %}
+    <li><a href="?page={{ page_obj.previous_page_number }}" class="page-link">&laquo; PREV </a></li>
+    {% endif %}
+    {% if page_obj.has_next %}
+    <li><a href="?page={{ page_obj.next_page_number }}" class="page-link"> NEXT &raquo;</a></li>
+    {% endif %}
+  </ul>
+  </nav>
+{% endif %}
+{% endblock %}

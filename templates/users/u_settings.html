@@ -1,0 +1,26 @@
+{% extends 'users/base.html' %}
+{% load static %}
+{% block title %}{{ title }}{% endblock %}
+{% block mainblog %}
+<div style='border:5px solid #fff;'></div>
+    <div class="card">
+        <div class="card-header">
+            Настроеки аккаунта {{user.username}}
+        </div>
+        <div class="card-body">
+            <form method="post" action="{% url 'u_settings' user.id%}" enctype="multipart/form-data">
+                {% csrf_token %}
+                {% for f in form %}
+                    <p><label class="form_label" for="{{ f.id_for_label }}">{{ f.label }}:</label>
+                        {{f}}
+                    </p>
+                    <div class="form-error">
+                        {{ f.errors }}
+                    </div>
+                {% endfor %}
+                <button style='width:250px;' class="btn btn-primary" type="submit">Обновить</button>
+            </form>
+            <a href="{% url 'profile' user.id %}" style='width:250px;' class="btn btn-primary">Назад</a>
+        </div>
+    </div>    
+{% endblock %}

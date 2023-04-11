@@ -1,0 +1,31 @@
+<div class="container">
+    <div class="row">
+        <div  class="col-2">
+            {% if request.user.is_authenticated %}
+                <h6>Меню</h6>
+                    <nav class="nav flex-column">
+                        <a class="nav-link-2" href="{% url 'profile' user.id %}">Мой страница</a>
+                        {% if request.user.groups %}
+                            <a target="blank" class="nav-link-2" href="admin/">Админ панель</a>
+                        {% endif %}
+                        <a class="nav-link-2" href="{% url 'allusers' %}">Пользователи</a>
+                        <a class="nav-link-2" href="{% url 'blog_add' %}">Добавить пост</a>
+                        <a class="nav-link-2" href="{% url 'u_settings' user.id %}">Настройки</a>
+                        <a class="nav-link-2" href="{% url 'logout' %}">Выход</a>
+                    </nav>
+            {% endif %}
+                
+                    {% if category %}
+                        {% for menu in category %}
+                        <h6>Категории сайта</h6>
+                            <nav class="nav flex-column">
+                                <a class="nav-link-2" aria-current="page" href="{% url 'home'%}">Все категории</a>
+                                <a class="nav-link-2" aria-current="page" href="{% url 'post_category' menu.slug %}">{{ menu.title }}</a>
+                            </nav>
+                        {% endfor %}
+                    {% else %}
+                        В базе данный нет категорий
+                    {% endif %}
+                
+        </div>
+        <div  class="col-10">

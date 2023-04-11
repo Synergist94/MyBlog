@@ -1,0 +1,19 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% block title %}{{ post.title}}{% endblock %}
+{% block mainblog %}
+<div style='border:5px solid #fff;'></div>
+    <div class="card">
+        <div class="card-header">
+            Вы уверены, что хотите удалить данную запись
+        </div>
+        <div class="card-body">
+            <form method="post">{% csrf_token %}
+                <p>"{{ object }}"?</p>
+                {{ form }}
+                <button class="btn btn-primary" type="submit">Удалить</button>
+                <a href="{% url 'post_detail' post.slug%}" class="btn btn-primary">Назад</a>
+            </form>
+        </div>
+    </div>
+{% endblock %}

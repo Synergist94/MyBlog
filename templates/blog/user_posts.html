@@ -1,0 +1,49 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% block title %}{{ posts.title }}{% endblock %}
+{% block mainblog %}
+{% for post in posts%}
+    <div class="art_2">
+        <div class="art_2_4">
+            <div class="art_title_2">
+                <a href="{% url 'post_detail' post.slug%}">{{post.title}}</a>
+            </div>
+            <div class="art_content_2">
+                
+                <div class="art_text">
+                    {{post.text|safe}}
+                </div>
+            </div>
+            <div class="art_footer_2">
+                Добавил: 
+                <img width='25px' class="rounded-circle article-img" src="{{ post.author.profile.image.url }}"> 
+                <a style='text-decoration: none;' href="{% url 'profile' post.author.id %}">{{post.author}} </a> | Дата публикации {{post.created_on|date:"d-m-Y H:i"}} | Категория - {{post.category}}
+            </div>
+        </div>
+    </div>
+{% endfor %}
+<div class="pagination justify-content-center"> 
+    {% if is_paginated %}
+
+      {% if page_obj.has_previous %}
+        <a class="btn btn-outline-info mb-4 mr-1" href="?page=1">Первая</a>
+        <a class="btn btn-outline-info mb-4 mr-1" href="?page={{ page_obj.previous_page_number }}">Предыдущая</a>
+      {% endif %}
+
+      {% for num in page_obj.paginator.page_range %}
+        {% if page_obj.number == num %}
+          <a class="btn btn-info mb-4 mr-1" href="?page={{ num }}">{{ num }}</a>
+        {% elif num > page_obj.number|add:'-3' and num < page_obj.number|add:'3' %}
+          <a class="btn btn-outline-info mb-4 mr-1" href="?page={{ num }}">{{ num }}</a>
+        {% endif %}
+      {% endfor %}
+
+      {% if page_obj.has_next %}
+        <a class="btn btn-outline-info mb-4 mr-1" href="?page={{ page_obj.next_page_number }}">Следующая</a>
+        <a class="btn btn-outline-info mb-4 mr-1" href="?page={{ page_obj.paginator.num_pages }}">Последняя</a>
+      {% endif %}
+
+    {% endif %}
+  </div>
+</div>
+{% endblock %}

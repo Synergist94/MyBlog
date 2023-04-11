@@ -1,0 +1,35 @@
+{% extends 'users/base.html' %}
+{% load static %}
+{% block title %}{{ title }}{% endblock %}
+{% block mainblog %}
+<div style='border:5px solid #fff;'></div>
+    <div class="card">
+        <div class="card-header">
+            Пользователи на сайте
+        </div>
+        <div class="card-body">
+            {% if allusers %}
+                        {% for allusers in allusers%}
+                            <div class="prof_user">
+                                <div class="prof_user_img">
+                                    <div class='contur'>
+                                        <img class="img" src="{{ allusers.profile.image.url }}">
+                                    </div>
+                                </div>
+                                <div class="prof_info_user">
+                                        <div id='title' class="col-6">
+                                            <a href="{% url 'profile' allusers.id %}">{{allusers.username}}</a>
+                                        </div>
+                                        <div id='text' class="col-6">
+                                            <p>Можно написать сообщение</p>
+                                            <a href="#" style='width:250px;' class="btn btn-outline-secondary btn-sm">Написать сообщение</a>
+                                        </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% else %}
+                        В базе данный нет записей
+                    {% endif %}
+        </div>
+    </div>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% block title %}{{ post.title}}{% endblock %}
+{% block mainblog %}
+<div style='border:5px solid #fff;'></div>
+    <div class="card">
+        <div class="card-header">
+            {{post.title}} <a style="color:green" href="{% url 'blog_update' post.id%}">Редактировать</a> | 
+                                <a style="color:red" href="{% url 'blog_delete' post.id%}">Удалить</a>
+        </div>
+        <div class="card-body">
+            {{ post.text|safe}}
+            {{ post.full_text|safe}}
+        </div>
+        <div class="art_footer_2">
+            Добавил: 
+            <img width='25px' class="rounded-circle article-img" src="{{ post.author.profile.image.url }}">
+            <a style='text-decoration: none;' href="{% url 'profile' post.author.id %}">{{post.author}} </a> | Дата публикации {{post.created_on|date:"d-m-Y H:i"}} | Категория - {{post.category}}
+        </div>
+    </div>
+
+{% endblock %}

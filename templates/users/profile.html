@@ -1,0 +1,101 @@
+{% extends 'users/base.html' %}
+{% load static %}
+{% block title %}{{ title }}{% endblock %}
+{% block mainblog %}
+<div style='border:5px solid #fff;'></div>
+    <div class="card">
+        <div class="card-header">
+            {{alluser.first_name}} {{alluser.last_name}}
+        </div>
+        <div  class="card-body">
+            <div  class="row">
+                <div  class="col-4">
+                    <p><img width='250px' class="" src="{{ user.profile.image.url }}"></p>
+                    {% if request.user %}
+                        {{user.profile}}
+                    {% else %}
+                        {{allusers}}
+                    {% endif %}
+                    <p><a href="#" class="btn btn-primary">Написать сообщение</a></p>
+                </div>
+                <div  class="col-8">
+                    <div  class="row">
+                        <div  class="col-6">
+                          Никнейм:
+                        </div>
+                        <div class="col-6">
+                            {{alluser.username}}
+                        </div>
+                    </div>
+                    <div  class="row">
+                        <div class="col-6">
+                          E-mail:
+                        </div>
+                        <div class="col-6">
+                            {{alluser.email}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+             {% comment %}<img width='250px' class="" src="{{ user.profile.image.url }}">
+            <form method="post"  enctype="multipart/form-data">
+                        {% csrf_token %}
+                        {% for image in form %}
+                            <p>
+                                {{image}}
+                            </p>
+                            <div class="form-error">
+                                {{ f.errors }}
+                            </div>
+                        {% endfor %}
+                        <button style='width:250px;' class="btn btn-outline-secondary btn-sm" type="submit">Изменить</button>
+                    </form> 
+            <a href="#" class="btn btn-primary">Написать сообщение</a>
+            <div class="row">
+                <div class="col-6">
+                  Никнейм:
+                </div>
+                <div class="col-6">
+                    {{alluser.username}}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                  E-mail:
+                </div>
+                <div class="col-6">
+                    {{alluser.email}}
+                </div>
+            </div>{% endcomment %}
+        </div>
+    </div>
+
+
+    
+            {% comment %} </div>
+            Моя стена
+            <div class="prof_user">
+                <div class="prof_user_img">
+                    <div class='contur'>
+                    <img width='80px' class="img" src="{{ user.profile.image.url }}">
+                    </div>
+                </div>
+                <div class="prof_info_user">
+                        <div id='title' class="col-6">
+                            {{user.username}} {{stena.create_on}}
+                        </div>
+                        <div id='text' class="col-6">
+                            Один человек погиб в результате аварийной посадки вертолёта "AS 350" под Междуреченском. Авиакатастрофа произошла в районе горы Топхан.
+                        </div>
+                        <div id='foot' class="col-6">
+                            Цитировать | Редактировать | Удалить
+                        </div>
+                </div>
+            </div> 
+            <form method="post">
+                <textarea class="textarea"></textarea>
+                <input type="submit" value="Отправить">
+            </form>{% endcomment %}
+
+    
+{% endblock %}

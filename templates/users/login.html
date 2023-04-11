@@ -1,0 +1,28 @@
+{% extends 'users/base.html' %}
+{% load static %}
+{% block title %}{{ title }}{% endblock %}
+{% block mainblog %}
+<div style='border:5px solid #fff;'></div>
+    <div class="card">
+        <div class="card-header">
+            Авторизация на сайте
+        </div>
+        <div class="card-body">
+            {{ form.non_field_errors }}
+            <form class="form_reg" method="post">
+            {% csrf_token %}
+            {% for f in form %}
+                <p><label class="form_label" for="{{ f.id_for_label }}">{{ f.label }}:</label>{{ f }}</p>
+                <div class="form-error">{{ f.errors }}</div>
+            {% endfor %}
+            <button class="btn btn-outline-info" type="submit"> Войти </button></br></br>
+            </form>
+        
+            <div class="border-top pt-3">
+                <small class="text-muted">
+                    Нужен аккаунт? <a class="ml-2" href="{% url 'register' %}">Регистрация</a>
+                </small>
+            </div>
+        </div>
+    </div>
+{% endblock %}
