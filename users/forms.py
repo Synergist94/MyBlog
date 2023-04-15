@@ -3,6 +3,12 @@ from django import forms
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 
+class MessageForm(forms.ModelForm):
+    class Meta:
+        model = Message
+        fields = ['message']
+        labels = {'message': ""}
+
 class ProfileUpdateForm(forms.ModelForm):
     email = forms.EmailField()
     username = forms.CharField(label='Никнейм', required=False, widget=forms.TextInput(attrs={'class': 'form_input'}))
